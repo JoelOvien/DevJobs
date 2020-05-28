@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildBody() {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.only(left: 5, right: 5),
+        padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,9 +65,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 'Experience Level',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    decoration: TextDecoration.underline),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
             SizedBox(
@@ -96,9 +96,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 'Portfolio Link',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    decoration: TextDecoration.underline),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
             Padding(
@@ -116,9 +116,9 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Text(
                 'Additional Link(e.g Dribbble)',
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    decoration: TextDecoration.underline),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
           ],
