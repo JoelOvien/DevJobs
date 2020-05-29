@@ -8,15 +8,32 @@ class JobPage extends StatefulWidget {
 }
 
 class _JobPageState extends State<JobPage> {
-  int a = 0;
-  // Color _iconColor = Colors.grey;
-  bool isLiked = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(),
       body: _buildBody(),
+    );
+  }
+
+  Widget _jobStatusChip(int number, String status) {
+    var selectedChip;
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedChip = number;
+          });
+        },
+        child: Chip(
+          label: Text(
+            status,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: selectedChip == number ? Colors.indigo : Colors.grey,
+        ),
+      ),
     );
   }
 
@@ -27,43 +44,9 @@ class _JobPageState extends State<JobPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: GestureDetector(
-                  // onTap: a == 0
-                  //     ? null
-                  //     : () => setState(() {
-                  //           a = 0;
-                  //         }),
-                  child: Chip(
-                    label: Text(
-                      'Accepted',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    backgroundColor: isLiked ? Colors.grey : Colors.indigo,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: Chip(
-                  label: Text(
-                    'In Progress',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  backgroundColor: isLiked ? Colors.grey : Colors.indigo,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(5),
-                child: Chip(
-                  label: Text(
-                    'Rejected',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  backgroundColor: isLiked ? Colors.grey : Colors.indigo,
-                ),
-              ),
+              _jobStatusChip(0, 'Accepted'),
+              _jobStatusChip(1, 'In Progress'),
+              _jobStatusChip(2, 'Rejected'),
             ],
           ),
           SizedBox(
