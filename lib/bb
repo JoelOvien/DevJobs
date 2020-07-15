@@ -1,0 +1,158 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
+
+class OnBoarding extends StatefulWidget {
+  @override
+  _OnBoardingState createState() => _OnBoardingState();
+}
+
+class _OnBoardingState extends State<OnBoarding> {
+  final SwiperController _swiperController = SwiperController();
+  final _pageCount = 4;
+  int _currentindex = 0;
+  final List<String> titles = [
+    'Welcome To Drool',
+    'Food is a beautiful art and an essential requirement for our physical and mental wellbeing.',
+    'The Drool app is a food feed which helps its users to search and find amazing meals from nearby restaurants',
+    "Drool helps to link restaurants with potential customers and vice versa. It also provides smart suggestions based on the user'spreferences, reviews and search queries...",
+  ];
+  final List<Color> pageBgs = [
+    Colors.grey.shade600,
+    Colors.grey.shade600,
+    Colors.grey.shade600,
+    Colors.grey.shade700,
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white12,
+      body: Stack(
+        children: <Widget>[
+          Center(
+            child: Container(
+              height: 300,
+              margin: EdgeInsets.only(left: 8.0, right: 8.0),
+              decoration: BoxDecoration(
+                color: Colors.deepOrange,
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Swiper(
+                  loop: false,
+                  index: _currentindex,
+                  controller: _swiperController,
+                  itemCount: _pageCount,
+                  itemBuilder: (context, index) {
+                    return _buildPage(
+                        title: titles[index], pageBg: pageBgs[index]);
+                  },
+                  pagination:
+                      SwiperPagination(alignment: Alignment.bottomCenter),
+                  onIndexChanged: (index) {
+                    setState(
+                      () {
+                        _currentindex = index;
+                      },
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              _buildButtons(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildButtons() {
+    return Container(
+      margin: EdgeInsets.only(right: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          FlatButton(
+            textColor: Colors.grey.shade600,
+            child: Text('Skip'),
+            onPressed: () {
+              Navigator.of(context).pushReplacementNamed('/Account');
+            },
+          ),
+          IconButton(
+            onPressed: () async {
+              if (_currentindex < _pageCount - 1) {
+                _swiperController.next();
+              } else {
+                Navigator.of(context).pushReplacementNamed('/Account');
+              }
+            },
+            icon: Icon(_currentindex < _pageCount - 1
+                ? Icons.arrow_forward_ios
+                : Icons.check),
+            color: Colors.deepOrangeAccent,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPage({String title, String icon, Color pageBg}) {
+    final TextStyle titleStyle = TextStyle(
+      fontWeight: FontWeight.w500,
+      fontSize: 20.0,
+      color: Colors.white,
+    );
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(16.0, 50.0, 16.0, 40.0),
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30.0),
+        color: pageBg,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            height: 20.0,
+          ),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: titleStyle,
+          ),
+          SizedBox(
+            height: 30.0,
+          ),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16.0),
+              child: Container(
+                height: 300,
+                width: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: ExactAssetImage('img/bgee.png'),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 50.0,
+          ),
+        ],
+      ),
+    );
+  }
+}
